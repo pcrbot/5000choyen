@@ -7,8 +7,8 @@ from os import path
 _round = lambda f, r=ROUND_HALF_UP: int(Decimal(str(f)).quantize(Decimal("0"), rounding=r))
 rgb = lambda r, g, b: (r, g, b)
 
-upper_font_path = path.join(path.dirname(__file__), 'jdchj.ttf')
-downer_font_path = path.join(path.dirname(__file__), 'fzcsjw.ttf')
+upper_font_path = path.join(path.dirname(__file__), 'onefont.ttf')
+downer_font_path = path.join(path.dirname(__file__), 'anotherfont.ttf')
 
 
 def get_gradient_2d(start, stop, width, height, is_horizontal=False):
