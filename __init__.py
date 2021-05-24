@@ -29,5 +29,7 @@ async def gen_5000_pic(bot, ev: CQEvent):
         img = str(MessageSegment.image(pic2b64(img)))
         await bot.send(ev, img)
         lmt.increase(uid)
+    except OSError:
+        await bot.send(ev, '生成失败……请检查字体文件设置是否正确')
     except:
         await bot.send(ev, '生成失败……请检查命令格式是否正确')
