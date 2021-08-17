@@ -3,14 +3,17 @@
 
 在[SAGIRI-kawaii](https://github.com/SAGIRI-kawaii)大佬的 Graia-Saya [插件](https://github.com/SAGIRI-kawaii/saya_plugins_collection/tree/master/modules/5000zhao)基础上修改而来的适用hoshino的5000兆円欲しい! style图片生成器插件。
 
-
-字体文件以防万一就不放了，可以自己找喜欢的用，替换generator.py下upper_font_path和downer_font_path文件名即可。
-
-想贴近原版风格的话上半句选粗黑体，下半句选粗宋体）
-
 ## 配置
 
-P.S. 不同字体就算设置相同字号draw.text画出来的实际大小也不一样，默认参数是按照我用的字体调整的，换别的字体会有一定的偏差……建议根据自己的字体按需调整相应参数。
+5000choyen文件夹放进module文件夹，__bot__.py增加配置这类入门操作就不说了）
+
+重点：需要自己寻找想用的字体文件，并配置generator.py下upper_font_path（上半句字体）和downer_font_path（下半句字体）变量！
+
+默认的字体文件以防万一就没放进来（版权流氓惹不起.jpg），可以自己找喜欢的用，想贴近原版风格的话上半句选粗黑体，下半句选粗宋体）
+
+--------
+
+P.S. 不同字体就算设置相同字号draw.text画出来的实际大小也不一样，默认参数是按照我用的字体调整的，换别的字体会有一定的偏差，建议根据自己实际使用的字体按需调整相应参数。
 
 字号可以调整[这里](https://github.com/pcrbot/5000choyen/blob/b603868178d727f5c3d2dff716642326cba04af9/generator.py#L133)的"\_round(height/3)"参数，字体颜色渐变范围可以调整[这几个位置](https://github.com/pcrbot/5000choyen/blob/b603868178d727f5c3d2dff716642326cba04af9/generator.py#L83)的size参数。
 
