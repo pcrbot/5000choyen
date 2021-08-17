@@ -9,4 +9,14 @@
 想贴近原版风格的话上半句选粗黑体，下半句选粗宋体）
 
 
+P.S. 不同字体就算设置相同字号draw.text画出来的实际大小也不一样，默认参数是按照我用的字体调整的，换别的字体会有一定的偏差……建议根据自己的字体按需调整相应参数。
+
+字号可以调整[这里](https://github.com/pcrbot/5000choyen/blob/b603868178d727f5c3d2dff716642326cba04af9/generator.py#L133)的"\_round(height/3)"参数，字体颜色渐变范围可以调整[这几个位置](https://github.com/pcrbot/5000choyen/blob/b603868178d727f5c3d2dff716642326cba04af9/generator.py#L83)的size参数。
+
+几个颜色渐变范围，尤其是黑色部分的占比会很影响视觉效果，建议根据自己的字体调整到自己觉得效果最好的程度）
+
+顺便我自己用的字体调完参数大概是这个效果，仅供参考：
+![@HX104L(TYO@NQY$UXR8E8C](https://user-images.githubusercontent.com/55473115/129693767-67712df7-8dbf-465b-ab22-4b7029af5660.PNG)
+
+
 使用方法：发送“5000兆元 (上半句)|(下半句)”
