@@ -10,7 +10,7 @@ lmt = DailyNumberLimiter(10)
 
 sv = Service('5000choyen', help_='[5000兆元] (上半句)|(下半句)')
 
-@sv.on_prefix(('5000兆元','5000兆円'))
+@sv.on_prefix(('5000兆元','5000兆円','5kcy'))
 async def gen_5000_pic(bot, ev: CQEvent):
     uid = ev.user_id
     gid = ev.group_id
@@ -23,6 +23,8 @@ async def gen_5000_pic(bot, ev: CQEvent):
         if not keyword:
             await bot.send(ev, '请提供要生成的句子！')
             return
+        if '｜' in keyword:
+            keyword=keyword.replace('｜','|')
         upper=keyword.split("|")[0]
         downer=keyword.split("|")[1]
         img=genImage(word_a=upper, word_b=downer)

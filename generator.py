@@ -7,8 +7,8 @@ from os import path
 _round = lambda f, r=ROUND_HALF_UP: int(Decimal(str(f)).quantize(Decimal("0"), rounding=r))
 rgb = lambda r, g, b: (r, g, b)
 
-upper_font_path = path.join(path.dirname(__file__), 'onefont.ttf')
-downer_font_path = path.join(path.dirname(__file__), 'anotherfont.ttf')
+upper_font_path = path.join(path.dirname(__file__), 'NotoSansCJKSC-Black.ttf')
+downer_font_path = path.join(path.dirname(__file__), 'NotoSerifCJKSC-Black.ttf')
 
 
 def get_gradient_2d(start, stop, width, height, is_horizontal=False):
@@ -38,20 +38,30 @@ def get_gradient_3d(width, height, start_list, stop_list, is_horizontal_list=(Fa
     return result
 
 
-def createLinearGradient(steps, width, height, size=1):
-    height=size*height
+def createLinearGradient(steps, width, height, size=1, center=0.5):
+    margin_up=_round(height*(center-size/2))
+    margin_down=_round(height*(1-center-size/2))
     result = np.zeros((0, width, len(steps[0])), dtype=float)
     for i, k in enumerate(steps.keys()):
-        if i == 0:
+        if k == 0:
+            array = get_gradient_3d(width, _round(margin_up), steps[k], steps[k])
+            result = np.vstack([result, array])
             continue
         pk = list(steps.keys())[i-1]
-        h = _round(height*(k-pk))
+        h = _round(height*size*(k-pk))
         array = get_gradient_3d(width, h, steps[pk], steps[k])
         result = np.vstack([result, array])
+        if k==1:
+            array = get_gradient_3d(width, _round(margin_down), steps[k], steps[k])
+            result = np.vstack([result, array])
+            continue
     return result
 
 
 def genBaseImage(width=1500, height=500):
+
+    k=0.63   #渐变色缩放系数，不应大于1
+    c=0.53    #渐变色中心位置
     
     downerSilverArray = createLinearGradient({
         0: rgb(0, 15, 36),
@@ -64,7 +74,7 @@ def genBaseImage(width=1500, height=500):
         0.91: rgb(240, 240, 240),
         0.95: rgb(166, 175, 194),
         1: rgb(50, 50, 50)
-    }, width=width, height=height)
+    }, width=width, height=height, size=k, center=c)
     
     goldArray = createLinearGradient({
         0: rgb(253, 241, 0),
@@ -73,21 +83,21 @@ def genBaseImage(width=1500, height=500):
         0.75: rgb(253, 219, 9),
         0.9: rgb(127, 53, 0),
         1: rgb(243, 196, 11)
-    }, width=width, height=height)
+    }, width=width, height=height, size=k, center=c)
     
     strokeRedArray = createLinearGradient({
         0: rgb(255, 100, 0),
         0.5: rgb(123, 0, 0),
         0.51: rgb(240, 0, 0),
         1: rgb(5, 0, 0)
-    }, width=width, height=height, size=0.82)
+    }, width=width, height=height, size=k, center=c)
     
     redArray = createLinearGradient({
         0: rgb(230, 0, 0),
         0.5: rgb(123, 0, 0),
         0.51: rgb(240, 0, 0),
         1: rgb(5, 0, 0)
-    }, width=width, height=height, size=0.82)
+    }, width=width, height=height, size=k, center=c)
     
     silver2Array = createLinearGradient({
         0: rgb(245, 246, 248),
@@ -97,7 +107,7 @@ def genBaseImage(width=1500, height=500):
         0.51: rgb(160, 190, 201),
         0.52: rgb(196, 215, 222),
         1.0: rgb(255, 255, 255)
-    }, width=width, height=height, size=0.85)
+    }, width=width, height=height, size=k, center=c)
     
     navyArray = createLinearGradient({
         0: rgb(16, 25, 58),
@@ -105,7 +115,7 @@ def genBaseImage(width=1500, height=500):
         0.08: rgb(16, 25, 58),
         0.2: rgb(16, 25, 58),
         1: rgb(16, 25, 58)
-    }, width=width, height=height, size=0.85)
+    }, width=width, height=height, size=k, center=c)
     
     result = {
         "downerSilver": Image.fromarray(np.uint8(downerSilverArray)).crop((0, 0, width, height)),
@@ -127,11 +137,14 @@ def genBaseImage(width=1500, height=500):
 def genImage(word_a="5000兆円", word_b="欲しい!", default_width=1500, height=500,
              bg="white", subset=250, default_base=None):
     # width = max_width
+
+    k=0.8     #字体缩放系数
+
     alpha = (0, 0, 0, 0)
     leftmargin = 50
     upmargin = 20
-    font_upper = ImageFont.truetype(upper_font_path, _round(height/3)+ upmargin)
-    font_downer = ImageFont.truetype(downer_font_path, _round(height/3)+ upmargin)
+    font_upper = ImageFont.truetype(upper_font_path, _round(height*0.35*k)+ upmargin)
+    font_downer = ImageFont.truetype(downer_font_path, _round(height*0.35*k)+ upmargin)
 
     # Prepare Width
     upper_width = max([default_width,
@@ -162,7 +175,7 @@ def genImage(word_a="5000兆円", word_b="欲しい!", default_width=1500, heigh
             (4, 4), (4, 4), (0, 0), (0, 0), (2, -3), (0, -3), (0, -3), (0, -3)
         ],
         [
-            22, 20, 16, 10, 6, 6, 4, 0
+            22, 20, 16, 10, 6, 6, 3, 0
         ],
         [
             "baseStrokeBlack",
