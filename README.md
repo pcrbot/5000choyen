@@ -15,7 +15,7 @@
 
 （不同字体设置相同字号draw.text画出来的实际大小也不同，默认参数是参照默认字体调整的，换别的字体会有一定的偏差，如果换自己的字体建议根据自行按需调整相应参数以达到最佳效果。）
 
-字号可以调整[这里](https://github.com/pcrbot/5000choyen/blob/b603868178d727f5c3d2dff716642326cba04af9/generator.py#L133)的参数，字体渐变色范围可以调整[这里](https://github.com/pcrbot/5000choyen/blob/9ced92cb045dc4c132c7e9ee1c0f65345adda459/generator.py#L63)的size参数。
+如字体显示不全请在[这里](https://github.com/pcrbot/5000choyen/blob/8f76d7efa95be60a02a293b7054c654413c9d078/generator.py#L141)调整字号缩放参数，如渐变色范围有误请在[这里](https://github.com/pcrbot/5000choyen/blob/9ced92cb045dc4c132c7e9ee1c0f65345adda459/generator.py#L63)调整渐变色位置参数。
 
 
 
